@@ -13,14 +13,16 @@ import android.widget.TextView;
 
 import com.google.android.stardroid.R;
 import com.google.android.stardroid.StardroidApplication;
-import com.google.android.stardroid.inject.HasComponent;
 import com.google.android.stardroid.util.MiscUtil;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * Created by johntaylor on 6/10/16.
  */
+@AndroidEntryPoint
 public class WhatsNewDialogFragment extends DialogFragment {
   private static final String TAG = MiscUtil.getTag(WhatsNewDialogFragment.class);
   @Inject Activity parentActivity;
@@ -34,15 +36,8 @@ public class WhatsNewDialogFragment extends DialogFragment {
     this.closeListener = closeListener;
   }
 
-  public interface ActivityComponent {
-    void inject(WhatsNewDialogFragment fragment);
-  }
-
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    // Activities using this dialog MUST implement this interface.  Obviously.
-    ((HasComponent<ActivityComponent>) getActivity()).getComponent().inject(this);
-
     LayoutInflater inflater = parentActivity.getLayoutInflater();
     View view = inflater.inflate(R.layout.whatsnew_view, null);
 

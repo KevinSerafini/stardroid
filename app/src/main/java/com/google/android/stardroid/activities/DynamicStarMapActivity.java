@@ -41,6 +41,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.stardroid.ApplicationConstants;
@@ -61,7 +62,6 @@ import com.google.android.stardroid.control.AstronomerModel;
 import com.google.android.stardroid.control.AstronomerModel.Pointing;
 import com.google.android.stardroid.control.ControllerGroup;
 import com.google.android.stardroid.control.MagneticDeclinationCalculatorSwitcher;
-import com.google.android.stardroid.inject.HasComponent;
 import com.google.android.stardroid.layers.LayerManager;
 import com.google.android.stardroid.math.CoordinateManipulationsKt;
 import com.google.android.stardroid.math.MathUtils;
@@ -90,15 +90,10 @@ import javax.inject.Provider;
 /**
  * The main map-rendering Activity.
  */
-public class DynamicStarMapActivity extends InjectableActivity
-    implements OnSharedPreferenceChangeListener, HasComponent<DynamicStarMapComponent> {
+public class DynamicStarMapActivity extends AppCompatActivity
+    implements OnSharedPreferenceChangeListener {
   private static final int TIME_DISPLAY_DELAY_MILLIS = 1000;
   private FullscreenControlsManager fullscreenControlsManager;
-
-  @Override
-  public DynamicStarMapComponent getComponent() {
-    return daggerComponent;
-  }
 
   /**
    * Passed to the renderer to get per-frame updates from the model.
@@ -180,7 +175,6 @@ public class DynamicStarMapActivity extends InjectableActivity
   // TODO(widdows): Figure out if we should break out the
   // time dialog and time player into separate activities.
   private View timePlayerUI;
-  private DynamicStarMapComponent daggerComponent;
   @Inject @Named("timetravel") Provider<MediaPlayer> timeTravelNoiseProvider;
   @Inject @Named("timetravelback") Provider<MediaPlayer> timeTravelBackNoiseProvider;
   private MediaPlayer timeTravelNoise;
@@ -205,7 +199,7 @@ public class DynamicStarMapActivity extends InjectableActivity
   @Inject MagneticDeclinationCalculatorSwitcher magneticSwitcher;
 
   private DragRotateZoomGestureDetector dragZoomRotateDetector;
-  @Inject Animation flashAnimation;
+  @Inject @Named("flash") Animation flashAnimation;
   private ActivityLightLevelManager activityLightLevelManager;
   private long sessionStartTime;
 
@@ -213,11 +207,6 @@ public class DynamicStarMapActivity extends InjectableActivity
   public void onCreate(Bundle icicle) {
     Log.d(TAG, "onCreate at " + System.currentTimeMillis());
     super.onCreate(icicle);
-
-    daggerComponent = DaggerDynamicStarMapComponent.builder()
-        .applicationComponent(getApplicationComponent())
-        .dynamicStarMapModule(new DynamicStarMapModule(this)).build();
-    daggerComponent.inject(this);
 
     sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 

@@ -17,6 +17,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.stardroid.R;
 import com.google.android.stardroid.StardroidApplication;
 import com.google.android.stardroid.activities.util.SensorAccuracyDecoder;
@@ -37,7 +39,10 @@ import java.util.TimeZone;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-public class DiagnosticActivity extends InjectableActivity implements SensorEventListener {
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
+public class DiagnosticActivity extends AppCompatActivity implements SensorEventListener {
   private static final String TAG = MiscUtil.getTag(DiagnosticActivity.class);
   private static final int UPDATE_PERIOD_MILLIS = 500;
 
@@ -60,9 +65,6 @@ public class DiagnosticActivity extends InjectableActivity implements SensorEven
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    DaggerDiagnosticActivityComponent.builder().applicationComponent(
-      getApplicationComponent()).diagnosticActivityModule(new DiagnosticActivityModule(this))
-          .build().inject(this);
     setContentView(R.layout.activity_diagnostic);
   }
 

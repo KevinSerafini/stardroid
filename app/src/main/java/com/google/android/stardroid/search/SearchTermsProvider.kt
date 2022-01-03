@@ -37,22 +37,6 @@ class SearchTermsProvider : ContentProvider() {
   lateinit var layerManager: LayerManager
 
   override fun onCreate(): Boolean {
-    maybeInjectMe()
-    return true
-  }
-
-  private var alreadyInjected = false
-  private fun maybeInjectMe(): Boolean {
-    // Ugh.  Android's separation of content providers from their owning apps makes this
-    // almost impossible.  TODO(jontayler): revisit and see if we can make this less
-    // nasty.
-    if (alreadyInjected) {
-      return true
-    }
-    val appContext = context?.applicationContext as? StardroidApplication ?: return false
-    val component = appContext.applicationComponent
-    component.inject(this)
-    alreadyInjected = true
     return true
   }
 
@@ -61,9 +45,6 @@ class SearchTermsProvider : ContentProvider() {
     sortOrder: String?
   ): Cursor? {
     Log.d(TAG, "Got query for $uri")
-    if (!maybeInjectMe()) {
-      return null
-    }
     require(TextUtils.isEmpty(selection)) { "selection not allowed for $uri" }
     require(!(selectionArgs != null && selectionArgs.size != 0)) { "selectionArgs not allowed for $uri" }
     require(TextUtils.isEmpty(sortOrder)) { "sortOrder not allowed for $uri" }

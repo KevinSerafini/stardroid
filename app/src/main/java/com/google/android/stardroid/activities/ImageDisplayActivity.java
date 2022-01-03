@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.stardroid.R;
@@ -39,24 +40,25 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * Shows an image to the user and allows them to search for it.
  *
  * @author John Taylor
  *
  */
-public class ImageDisplayActivity extends InjectableActivity {
+@AndroidEntryPoint
+public class ImageDisplayActivity extends AppCompatActivity {
   private static final String TAG = MiscUtil.getTag(ImageDisplayActivity.class);
   private static final int ERROR_MAGIC_NUMBER = -1;
   private GalleryImage selectedImage;
   private ActivityLightLevelManager activityLightLevelManager;
-  @Inject
-  Analytics analytics;
+  @Inject Analytics analytics;
 
   @Override
   protected void onCreate(Bundle icicle) {
     super.onCreate(icicle);
-    getApplicationComponent().inject(this);
     setContentView(R.layout.imagedisplay);
     activityLightLevelManager = new ActivityLightLevelManager(
         new ActivityLightLevelChanger(this, null),

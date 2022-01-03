@@ -41,6 +41,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * Edit the user's preferences.
  */
@@ -69,7 +71,6 @@ public class EditSettingsActivity extends PreferenceActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    ((StardroidApplication) getApplication()).getApplicationComponent().inject(this);
     activityLightLevelManager = new ActivityLightLevelManager(
         new ActivityLightLevelChanger(this, null),
         PreferenceManager.getDefaultSharedPreferences(this));

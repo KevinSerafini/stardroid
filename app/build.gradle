@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -99,6 +100,11 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     // For annotations not in Android but needed by Dagger
     implementation 'javax.annotation:jsr250-api:1.0'
+
+    def hilt_version = "2.38.1"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
     // Lite version for Android - it's lighter (obviously) but also doesn't use reflection
     // which can cause no end of problems with minifiers like proguard.
     implementation 'com.google.protobuf:protobuf-javalite:3.13.0'

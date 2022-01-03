@@ -31,6 +31,7 @@ import com.google.android.stardroid.util.AnalyticsInterface
 import com.google.android.stardroid.util.MiscUtil.getTag
 import com.google.android.stardroid.util.PreferenceChangeAnalyticsTracker
 import com.google.android.stardroid.views.PreferencesButton
+import dagger.hilt.android.HiltAndroidApp
 import java.util.*
 import javax.inject.Inject
 
@@ -39,34 +40,30 @@ import javax.inject.Inject
  *
  * @author John Taylor
  */
+@HiltAndroidApp
 class StardroidApplication : Application() {
-  @Inject
+  //@Inject
   lateinit var preferences: SharedPreferences
 
   // We keep a reference to this just to start it initializing.
-  @Inject
+  //@Inject
   lateinit var layerManager: LayerManager
 
-  @Inject
+  //@Inject
   lateinit var analytics: AnalyticsInterface
 
-  @Inject
+  //@Inject
   @JvmField
   var sensorManager: SensorManager? = null
 
   // We need to maintain references to this object to keep it from
   // getting gc'd.
-  @Inject
+  //@Inject
   lateinit var preferenceChangeAnalyticsTracker: PreferenceChangeAnalyticsTracker
-
-  val applicationComponent: ApplicationComponent = DaggerApplicationComponent.builder()
-    .applicationModule(ApplicationModule(this))
-    .build()
 
   override fun onCreate() {
     Log.d(TAG, "StardroidApplication: onCreate")
     super.onCreate()
-    applicationComponent.inject(this)
     Log.i(
       TAG, "OS Version: " + Build.VERSION.RELEASE
           + "(" + Build.VERSION.SDK_INT + ")"

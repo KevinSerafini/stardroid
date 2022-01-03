@@ -11,6 +11,8 @@ import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.stardroid.R;
 import com.google.android.stardroid.activities.util.SensorAccuracyDecoder;
 import com.google.android.stardroid.util.Analytics;
@@ -20,7 +22,10 @@ import com.google.android.stardroid.util.Toaster;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-public class CompassCalibrationActivity extends InjectableActivity implements SensorEventListener {
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
+public class CompassCalibrationActivity extends AppCompatActivity implements SensorEventListener {
   public static final String HIDE_CHECKBOX = "hide checkbox";
   public static final String DONT_SHOW_CALIBRATION_DIALOG = "no calibration dialog";
   public static final String AUTO_DISMISSABLE = "auto dismissable";
@@ -37,10 +42,6 @@ public class CompassCalibrationActivity extends InjectableActivity implements Se
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    DaggerCompassCalibrationComponent.builder()
-        .applicationComponent(getApplicationComponent())
-        .compassCalibrationModule(new CompassCalibrationModule(this)).build().inject(this);
-
     setContentView(R.layout.activity_compass_calibration);
     WebView web = findViewById(R.id.compass_calib_activity_webview);
     web.loadUrl("file:///android_asset/html/animated_gif_wrapper.html");

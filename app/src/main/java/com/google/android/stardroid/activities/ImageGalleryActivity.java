@@ -26,6 +26,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.stardroid.R;
@@ -40,13 +41,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * Displays a series of images to the user.  Selecting an image
  * invokes Sky Map Search.
  *
  * @author John Taylor
  */
-public class ImageGalleryActivity extends InjectableActivity {
+@AndroidEntryPoint
+public class ImageGalleryActivity extends AppCompatActivity {
   /** The index of the image id Intent extra.*/
   public static final String IMAGE_ID = "image_id";
 
@@ -54,8 +58,7 @@ public class ImageGalleryActivity extends InjectableActivity {
   private List<GalleryImage> galleryImages;
 
   private ActivityLightLevelManager activityLightLevelManager;
-  @Inject
-  Analytics analytics;
+  @Inject Analytics analytics;
 
   private class ImageAdapter extends BaseAdapter {
     public int getCount() {
@@ -93,7 +96,6 @@ public class ImageGalleryActivity extends InjectableActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    getApplicationComponent().inject(this);
     setContentView(R.layout.imagegallery);
     activityLightLevelManager = new ActivityLightLevelManager(
         new ActivityLightLevelChanger(this, null),

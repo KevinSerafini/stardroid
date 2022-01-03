@@ -14,15 +14,17 @@
 
 package com.google.android.stardroid.util;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.tasks.Task;
-import com.google.android.stardroid.StardroidApplication;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import javax.inject.Inject;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 /**
  * Encapsulates interactions with Google Analytics, allowing it to be
@@ -39,7 +41,7 @@ public class Analytics implements AnalyticsInterface {
   private static final String TAG = MiscUtil.getTag(Analytics.class);
 
   @Inject
-  Analytics(StardroidApplication application) {
+  Analytics(@ApplicationContext Context application) {
     firebaseAnalytics = FirebaseAnalytics.getInstance(application);
     Task<String> appId = firebaseAnalytics.getAppInstanceId();
     appId.addOnCompleteListener(task -> Log.d(TAG, "Firebase ID " + task.getResult()));

@@ -8,10 +8,13 @@ import android.os.Bundle;
 import com.google.android.stardroid.R;
 import com.google.android.stardroid.util.MiscUtil;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * Dialog explaining the need for the auto-location permission.
  * Created by johntaylor on 4/3/16.
  */
+@AndroidEntryPoint
 public class LocationPermissionRationaleFragment extends DialogFragment implements Dialog.OnClickListener {
   private static final String TAG = MiscUtil.getTag(EulaDialogFragment.class);
   private Callback resultListener;

@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 
 import com.google.android.stardroid.R;
 import com.google.android.stardroid.activities.DynamicStarMapActivity;
-import com.google.android.stardroid.inject.HasComponent;
 import com.google.android.stardroid.search.SearchResult;
 import com.google.android.stardroid.util.MiscUtil;
 
@@ -18,25 +17,21 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * End User License agreement dialog.
  * Created by johntaylor on 4/3/16.
  */
+@AndroidEntryPoint
 public class MultipleSearchResultsDialogFragment extends DialogFragment {
   private static final String TAG = MiscUtil.getTag(MultipleSearchResultsDialogFragment.class);
   @Inject DynamicStarMapActivity parentActivity;
 
   private ArrayAdapter<SearchResult> multipleSearchResultsAdaptor;
 
-  public interface ActivityComponent {
-    void inject(MultipleSearchResultsDialogFragment fragment);
-  }
-
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    // Activities using this dialog MUST implement this interface.  Obviously.
-    ((HasComponent<ActivityComponent>) getActivity()).getComponent().inject(this);
-
     // TODO(jontayler): inject
     multipleSearchResultsAdaptor = new ArrayAdapter<>(
         parentActivity, android.R.layout.simple_list_item_1, new ArrayList<SearchResult>());
