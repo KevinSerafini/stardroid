@@ -241,7 +241,7 @@ public class DynamicStarMapActivity extends InjectableActivity
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     // Sets the Toolbar to act as the ActionBar for this Activity window.
     // Make sure the toolbar exists in the activity and is not null
-    setSupportActionBar(toolbar);
+    setSupportActionBar(toolbar);  //https://guides.codepath.com/android/using-the-app-toolbar
 
     initializeModelViewController();
     checkForSensorsAndMaybeWarn();
