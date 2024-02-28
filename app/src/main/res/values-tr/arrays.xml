@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="popular_date_examples">
+        <item translation_description="Kullanıcının mevcut zamanı">Şimdi</item>
+        <item>Sonraki akşam günbatımı</item><!-- 1 -->
+        <item>Sonraki sabah gün doğumu</item><!-- 2 -->
+        <item>Sonraki dolunay</item><!-- 3 -->
+        <item>09 Mayıs 2016 Merkür Geçişi</item><!-- 4 -->
+        <item>8 Nisan 2024 Güneş Tutulması</item><!-- 5 -->
+        <item>Apollo 11 Ay İnişi</item><!-- 8 -->
+        <item>2020 Jüpiter-Satürn Kavuşumu</item><!-- 9 -->
+    </string-array>
+    <string-array name="sensor_speed">
+        <item translation_description="Yavaş sensör hızı">Yavaş</item>
+        <item translation_description="Normal sensör hızı">Orta</item>
+        <item translation_description="Hızlı sensör hızı">Hızlı</item>
+    </string-array>
+    <string-array name="sensor_damping">
+        <item translation_description="Düşük sensör sönüm faktörü">Titrek</item>
+        <item translation_description="Orta sensör sönüm faktörü">Orta</item>
+        <item translation_description="Ekstra Yüksek sensör sönüm faktörü">Uygun</item>
+        <item translation_description="Gerçekten Yüksek sensör sönüm faktörü">Gecikmeli</item>
+    </string-array>
+    <string-array name="viewing_direction">
+        <item translation_description="Normal görüntüleme">Normal</item>
+        <item translation_description="Ekranı 90 derece döndürür">Döndürülmüş yatay</item>
+        <item translation_description="Telefonun uzun kenarının işaret ettiği gökyüzünü gösterir">İşaretçi modu</item>
+    </string-array>
+</resources>
